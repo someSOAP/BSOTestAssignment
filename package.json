@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "workspaces": [
+    "bso-strapi",
+    "bso-spa"
+  ],
+  "scripts": {
+    "bso-spa": "yarn workspace bso-spa",
+    "bso-strapi": "yarn workspace bso-strapi",
+    "spa:dev": "yarn bso-spa dev",
+    "strapi:dev": "yarn bso-strapi develop",
+    "dev": "concurrently \"yarn strapi:dev\" \"yarn spa:dev\""
+  }
+}
