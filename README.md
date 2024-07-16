@@ -1,9 +1,11 @@
 # BSOTestAssignment
 
 
+## Strapi Admin Credentials
+Email: `test@admin.com`\
+Password: `TestAdmin123`
 
-
-# Issues
+## Issues
 At some places you will see some strange code like:
 ````
     const { useRegisterMutation } = authApiService;
