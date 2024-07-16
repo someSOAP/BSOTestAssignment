@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { authApiService } from "@/services";
+import { authApiService, usersApiService } from "@/services";
 import { User } from "@/types";
+
+import { TOKEN_KEY } from "./auth.constants";
 
 export interface AuthSlice {
   isAuthenticated: boolean;
@@ -9,10 +11,13 @@ export interface AuthSlice {
   user: User | null;
 }
 
-const getUtilSliceInitialState = () => {
+const getUtilSliceInitialState = (clearToken?: boolean) => {
+  if (clearToken) {
+    localStorage.removeItem(TOKEN_KEY);
+  }
   const initialState: AuthSlice = {
     isAuthenticated: false,
-    token: undefined,
+    token: localStorage.getItem(TOKEN_KEY) ?? undefined,
     user: null,
   };
   return initialState;
@@ -23,13 +28,24 @@ const authSlice = createSlice({
   initialState: getUtilSliceInitialState(),
   reducers: {
     resetAuthStateAction() {
-      return getUtilSliceInitialState();
+      return getUtilSliceInitialState(true);
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
-      authApiService.endpoints.logIn.matchRejected,
-      getUtilSliceInitialState
+      usersApiService.endpoints.me.matchFulfilled,
+      (state, { payload }) => {
+        console.log("ME");
+        console.log("ME");
+        console.log({ payload });
+        console.log("ME");
+        console.log("ME");
+        state.isAuthenticated = true;
+        state.user = payload;
+      }
+    );
+    builder.addMatcher(authApiService.endpoints.logIn.matchRejected, () =>
+      getUtilSliceInitialState(true)
     );
     builder.addMatcher(
       authApiService.endpoints.logIn.matchFulfilled,
@@ -39,9 +55,8 @@ const authSlice = createSlice({
         state.user = payload.user;
       }
     );
-    builder.addMatcher(
-      authApiService.endpoints.register.matchRejected,
-      getUtilSliceInitialState
+    builder.addMatcher(authApiService.endpoints.register.matchRejected, () =>
+      getUtilSliceInitialState(true)
     );
     builder.addMatcher(
       authApiService.endpoints.register.matchFulfilled,

@@ -19,7 +19,7 @@ export interface StrapiAuthResponse {
 }
 
 export const authApiService = createApi({
-  reducerPath: "authApi",
+  reducerPath: "authApiService",
   baseQuery: fetchBaseQuery({
     baseUrl: `${STRAPI_API}/auth/local`,
   }),

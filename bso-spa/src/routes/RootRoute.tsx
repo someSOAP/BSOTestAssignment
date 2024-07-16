@@ -3,8 +3,9 @@ import { useLocation, useNavigate, Outlet } from "react-router-dom";
 
 import { Loader } from "rsuite";
 
+import { usersApiService } from "@/services";
 import { isAuthenticatedSelector } from "@/store/authSlice";
-import { useAppSelector, useAppStore } from "@/hooks";
+import { useAppSelector } from "@/hooks";
 
 import {
   SIGN_UP_ROUTE,
@@ -15,13 +16,16 @@ import {
 
 const useAccessPolicy = () => {
   const [isChecking, setIsChecking] = useState(true);
-  const store = useAppStore();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isAuthenticated = useAppSelector(isAuthenticatedSelector);
 
+  const { isLoading } = usersApiService.useMeQuery();
+
   useEffect(() => {
-    const isAuthenticated = isAuthenticatedSelector(store.getState());
+    if (isLoading) {
+      return;
+    }
     const isAuthPath = [SIGN_IN_ROUTE, SIGN_UP_ROUTE].includes(pathname);
 
     if (!isAuthenticated && !isAuthPath) {
@@ -33,9 +37,9 @@ const useAccessPolicy = () => {
       navigate(HOME_ROUTE, { replace: true });
     }
     setIsChecking(false);
-  }, [pathname, isAuthenticated]);
+  }, [pathname, isLoading, isAuthenticated]);
 
-  return { isChecking };
+  return { isChecking: isChecking };
 };
 
 export const RootRoute: FC = () => {

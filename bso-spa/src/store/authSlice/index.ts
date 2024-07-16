@@ -1,2 +1,3 @@
-export * from "./auth.slice.ts";
-export * from "./auth.selectors.ts";
+export * from "./auth.slice";
+export * from "./auth.selectors";
+export * from "./auth.middleware";

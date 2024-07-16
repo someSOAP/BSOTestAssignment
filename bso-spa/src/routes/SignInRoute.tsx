@@ -19,7 +19,6 @@ export const SignInRoute: FC = () => {
     logIn(formValue as any);
   };
 
-  console.log(errorTyped);
   return (
     <FormPanel onSubmit={handleLogIn} isDisabled={isLoading}>
       <Form.Group>
