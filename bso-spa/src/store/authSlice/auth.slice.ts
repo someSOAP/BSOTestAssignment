@@ -11,7 +11,7 @@ export interface AuthSlice {
   user: User | null;
 }
 
-const getUtilSliceInitialState = (clearToken?: boolean) => {
+const getAuthSliceInitialState = (clearToken?: boolean) => {
   if (clearToken) {
     localStorage.removeItem(TOKEN_KEY);
   }
@@ -25,10 +25,10 @@ const getUtilSliceInitialState = (clearToken?: boolean) => {
 
 const authSlice = createSlice({
   name: "auth-slice",
-  initialState: getUtilSliceInitialState(),
+  initialState: getAuthSliceInitialState(),
   reducers: {
     resetAuthStateAction() {
-      return getUtilSliceInitialState(true);
+      return getAuthSliceInitialState(true);
     },
   },
   extraReducers: (builder) => {
@@ -40,7 +40,7 @@ const authSlice = createSlice({
       }
     );
     builder.addMatcher(authApiService.endpoints.logIn.matchRejected, () =>
-      getUtilSliceInitialState(true)
+      getAuthSliceInitialState(true)
     );
     builder.addMatcher(
       authApiService.endpoints.logIn.matchFulfilled,
@@ -51,7 +51,7 @@ const authSlice = createSlice({
       }
     );
     builder.addMatcher(authApiService.endpoints.register.matchRejected, () =>
-      getUtilSliceInitialState(true)
+      getAuthSliceInitialState(true)
     );
     builder.addMatcher(
       authApiService.endpoints.register.matchFulfilled,

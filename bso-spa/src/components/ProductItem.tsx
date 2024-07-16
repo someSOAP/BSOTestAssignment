@@ -1,15 +1,18 @@
 import { FC } from "react";
-import type { ProductType } from "@/types";
 
-import { List, IconButton, Heading } from "rsuite";
-import AddOutlineIcon from "@rsuite/icons/AddOutline";
+import { List, Heading } from "rsuite";
 
 import { getImageUrl, formatPrice } from "@/utils";
 import { Link } from "react-router-dom";
+
 import { PRODUCTS_ROUTE } from "@/constants";
 
+import type { ProductEntity } from "@/types";
+
+import { ProductCartBtn } from "./ProductCartBtn";
+
 export interface ProductItemProps {
-  product: ProductType;
+  product: ProductEntity;
 }
 
 export const ProductItem: FC<ProductItemProps> = ({ product }) => {
@@ -43,13 +46,7 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
             <div className="text-2xl font-bold">
               {formatPrice(product.attributes.price)}
             </div>
-            <IconButton
-              appearance="primary"
-              color="green"
-              icon={<AddOutlineIcon />}
-            >
-              Add to cart
-            </IconButton>
+            <ProductCartBtn productId={product.id} />
           </div>
         </div>
       </div>

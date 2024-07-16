@@ -3,7 +3,7 @@ export interface StrapiEntity<Attributes extends object> {
   attributes: Attributes & StrapiEntityDefaultAttributes;
 }
 
-interface StrapiEntityDefaultAttributes {
+export interface StrapiEntityDefaultAttributes {
   createdAt: string;
   publishedAt: string;
   updatedAt: string;

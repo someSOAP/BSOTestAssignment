@@ -1,12 +1,13 @@
 import { FC } from "react";
 
-import { Heading, Button } from "rsuite";
+import { Heading } from "rsuite";
 
-import { ProductType } from "@/types";
 import { formatPrice, getImageUrl } from "@/utils";
+import { ProductCartBtn } from "@/components";
+import type { ProductEntity } from "@/types";
 
 export interface ProductInfoProps {
-  product: ProductType;
+  product: ProductEntity;
 }
 
 export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
@@ -37,9 +38,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
               {formatPrice(product.attributes.price)}
             </span>
           </div>
-          <Button className="min-w-[150px]" appearance="primary" block>
-            Add to cart
-          </Button>
+          <ProductCartBtn productId={product.id} />
         </div>
       </div>
     </div>

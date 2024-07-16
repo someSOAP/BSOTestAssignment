@@ -5,8 +5,9 @@ import { List, Loader } from "rsuite";
 import { ProductItem } from "@/components";
 import { productsApiService } from "@/services";
 
+const { useProductsPageQuery } = productsApiService;
+
 export const ProductsRoute: FC = () => {
-  const { useProductsPageQuery } = productsApiService;
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching } = useProductsPageQuery(page);
 

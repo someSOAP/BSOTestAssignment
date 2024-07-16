@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 
 import { Exit } from "@rsuite/icons";
 
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { CART_ROUTE, PRODUCTS_ROUTE } from "@/constants";
 import { resetAuthStateAction } from "@/store";
+import { cartSelector } from "@/store/cartSlice/cart.selectors.ts";
 
 export const HomeHeader: FC = () => {
   const dispatch = useAppDispatch();
+
+  const cart = useAppSelector(cartSelector);
 
   const handleLogOut = () => {
     dispatch(resetAuthStateAction());
@@ -26,7 +29,7 @@ export const HomeHeader: FC = () => {
             Products
           </Nav.Item>
           <Nav.Item as={Link} to={CART_ROUTE}>
-            Cart
+            Cart {cart.length ? `(${cart.length})` : ""}
           </Nav.Item>
         </Nav>
         <Nav pullRight>
