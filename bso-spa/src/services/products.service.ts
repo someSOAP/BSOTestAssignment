@@ -15,6 +15,16 @@ export const productsApiService = createApi({
     productsPage: build.query<StrapiResponse<ProductType[]>, number>({
       query: (page: number) =>
         `?pagination[page]=${page}&sort[0]=publishedAt:desc&populate[0]=image`,
+      merge: (currentData, newData) => {
+        currentData.data.push(...newData.data);
+        currentData.meta = newData.meta;
+      },
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      forceRefetch: ({ currentArg, previousArg }) => {
+        return currentArg != previousArg;
+      },
     }),
   }),
 });

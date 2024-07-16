@@ -1,26 +1,48 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, UIEvent, useState } from "react";
 
-import { List } from "rsuite";
+import { List, Loader } from "rsuite";
 
 import { ProductItem } from "@/components";
 import { productsApiService } from "@/services";
 
 export const ProductsRoute: FC = () => {
-  const { useLazyProductsPageQuery } = productsApiService;
-  const pageRef = useRef(1);
-  const [fetch, { data }] = useLazyProductsPageQuery();
+  const { useProductsPageQuery } = productsApiService;
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetching } = useProductsPageQuery(page);
 
-  useEffect(() => {
-    fetch(pageRef.current);
-  }, []);
+  const handleScroll = (event: UIEvent<HTMLDivElement>) => {
+    if (isFetching) {
+      return;
+    }
+
+    let isEndReached = false;
+
+    if (data?.meta.pagination && data?.data) {
+      isEndReached = data.meta.pagination.total <= data.data.length;
+    }
+
+    if (isEndReached) {
+      return;
+    }
+
+    const scrollElement = event.currentTarget;
+    const isBottomReached =
+      scrollElement.scrollTop + scrollElement.clientHeight >
+      scrollElement.scrollHeight * 0.85;
+
+    if (isBottomReached) {
+      setPage((v) => v + 1);
+    }
+  };
 
   return (
-    <div className="w-full h-full overflow-hidden flex flex-col">
-      <List>
+    <div className="w-full h-full overflow-hidden flex flex-col relative">
+      <List onScroll={handleScroll}>
         {data?.data.map((item) => {
           return <ProductItem key={item.id} product={item} />;
         })}
       </List>
+      {isLoading && <Loader backdrop vertical size="lg" content="Loading..." />}
     </div>
   );
 };
