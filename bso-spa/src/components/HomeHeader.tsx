@@ -1,10 +1,12 @@
 import { FC } from "react";
 import { Header, Nav, Navbar } from "rsuite";
 import { Link } from "react-router-dom";
-import { CART_ROUTE, PRODUCTS_ROUTE } from "@/constants";
+
 import { Exit } from "@rsuite/icons";
+
 import { useAppDispatch } from "@/hooks";
-import { resetAuthStateAction } from "@/store/authSlice";
+import { CART_ROUTE, PRODUCTS_ROUTE } from "@/constants";
+import { resetAuthStateAction } from "@/store";
 
 export const HomeHeader: FC = () => {
   const dispatch = useAppDispatch();

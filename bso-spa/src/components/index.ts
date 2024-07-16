@@ -1,2 +1,3 @@
 export * from "./FormPanel";
-export * from "./HomeHeader.tsx";
+export * from "./HomeHeader";
+export * from "./ProductItem";

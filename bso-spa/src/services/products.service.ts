@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { STRAPI_API } from "@/constants";
-import type { RootAppState } from "@/types";
+import type { RootAppState, ProductType, StrapiResponse } from "@/types";
 
 export const productsApiService = createApi({
   reducerPath: "productsApiService",
@@ -12,9 +12,9 @@ export const productsApiService = createApi({
     },
   }),
   endpoints: (build) => ({
-    productsPage: build.query<any, number>({
+    productsPage: build.query<StrapiResponse<ProductType[]>, number>({
       query: (page: number) =>
-        `?pagination[page]=${page}&sort[0]=publishedAt:desc`,
+        `?pagination[page]=${page}&sort[0]=publishedAt:desc&populate[0]=image`,
     }),
   }),
 });

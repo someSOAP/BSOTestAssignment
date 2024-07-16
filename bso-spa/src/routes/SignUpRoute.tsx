@@ -4,7 +4,7 @@ import { Form, FormProps, ButtonToolbar, Button, Text } from "rsuite";
 
 import { FormPanel } from "@/components";
 import { authApiService } from "@/services";
-import { StrapiResponseError } from "@/types/strapi.types.ts";
+import type { StrapiResponseError } from "@/types";
 
 export const SignUpRoute: FC = () => {
   const { useRegisterMutation } = authApiService;

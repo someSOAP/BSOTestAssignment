@@ -17,7 +17,7 @@
       "required": true,
       "minLength": 6
     },
-    "Image": {
+    "image": {
       "type": "media",
       "multiple": false,
       "required": true,

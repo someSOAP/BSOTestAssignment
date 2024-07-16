@@ -379,7 +379,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    Image: Attribute.Media<'images'> & Attribute.Required;
+    image: Attribute.Media<'images'> & Attribute.Required;
     price: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
