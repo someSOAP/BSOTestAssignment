@@ -2,15 +2,18 @@ import { FC } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { RootRoute } from "./RootRoute";
-import { HomeRoute } from "./HomeRoute";
+import { AuthenticatedRoot } from "./AuthenticatedRoot";
+import { ProductsRoute } from "./ProductsRoute";
 import { SignInRoute } from "./SignInRoute";
 import { SignUpRoute } from "./SignUpRoute";
+import { CartRoute } from "./CartRoute.tsx";
 
 import {
   SIGN_UP_ROUTE,
   SIGN_IN_ROUTE,
   ROOT_ROUTE,
-  HOME_ROUTE,
+  PRODUCTS_ROUTE,
+  CART_ROUTE,
 } from "@/constants/route.constants";
 
 const browserRouter = createBrowserRouter([
@@ -27,8 +30,17 @@ const browserRouter = createBrowserRouter([
         element: <SignInRoute />,
       },
       {
-        path: HOME_ROUTE,
-        element: <HomeRoute />,
+        element: <AuthenticatedRoot />,
+        children: [
+          {
+            path: PRODUCTS_ROUTE,
+            element: <ProductsRoute />,
+          },
+          {
+            path: CART_ROUTE,
+            element: <CartRoute />,
+          },
+        ],
       },
     ],
   },

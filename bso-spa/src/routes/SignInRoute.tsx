@@ -38,11 +38,15 @@ export const SignInRoute: FC = () => {
           <Button type="submit" appearance="primary">
             Sign In
           </Button>
-          <Link to={SIGN_UP_ROUTE}>
-            <Button loading={isLoading} appearance="link">
-              Create New Account
-            </Button>
-          </Link>
+
+          <Button
+            as={Link}
+            to={SIGN_UP_ROUTE}
+            loading={isLoading}
+            appearance="link"
+          >
+            Create New Account
+          </Button>
         </ButtonToolbar>
       </Form.Group>
     </FormPanel>

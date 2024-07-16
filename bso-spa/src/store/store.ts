@@ -4,13 +4,18 @@ import {
   EnhancedStore,
 } from "@reduxjs/toolkit";
 
-import { authApiService, usersApiService } from "@/services";
+import {
+  authApiService,
+  usersApiService,
+  productsApiService,
+} from "@/services";
 import { authSliceReducer, listenerMiddleware } from "@/store/authSlice";
 
 const reducer = combineReducers({
   authSliceReducer,
   [authApiService.reducerPath]: authApiService.reducer,
   [usersApiService.reducerPath]: usersApiService.reducer,
+  [productsApiService.reducerPath]: productsApiService.reducer,
 });
 
 export type AppReducerType = typeof reducer;
@@ -26,6 +31,7 @@ export const initializeStore = (
       return getDefaultMiddleware()
         .concat(authApiService.middleware)
         .concat(usersApiService.middleware)
+        .concat(productsApiService.middleware)
         .concat(listenerMiddleware.middleware);
     },
   });

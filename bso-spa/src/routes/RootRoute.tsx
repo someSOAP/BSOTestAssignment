@@ -10,7 +10,7 @@ import { useAppSelector } from "@/hooks";
 import {
   SIGN_UP_ROUTE,
   SIGN_IN_ROUTE,
-  HOME_ROUTE,
+  PRODUCTS_ROUTE,
   ROOT_ROUTE,
 } from "@/constants/route.constants";
 
@@ -34,7 +34,7 @@ const useAccessPolicy = () => {
     }
 
     if (isAuthenticated && (isAuthPath || pathname === ROOT_ROUTE)) {
-      navigate(HOME_ROUTE, { replace: true });
+      navigate(PRODUCTS_ROUTE, { replace: true });
     }
     setIsChecking(false);
   }, [pathname, isLoading, isAuthenticated]);
@@ -46,7 +46,7 @@ export const RootRoute: FC = () => {
   const { isChecking } = useAccessPolicy();
 
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 h-full">
       {isChecking && <Loader center size="lg" content="Loading..." />}
       {!isChecking && <Outlet />}
     </div>
