@@ -1,10 +1,12 @@
 import { FC } from "react";
 import type { ProductType } from "@/types";
 
-import { List, IconButton } from "rsuite";
+import { List, IconButton, Heading } from "rsuite";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
 
 import { getImageUrl, formatPrice } from "@/utils";
+import { Link } from "react-router-dom";
+import { PRODUCTS_ROUTE } from "@/constants";
 
 export interface ProductItemProps {
   product: ProductType;
@@ -29,7 +31,13 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
         )}
         <div className="flex flex-col justify-between absolute top-0 w-full h-full">
           <div className="bg-gray-100 bg-opacity-60 py-3 px-5 ">
-            <h3 className="text-3xl font-bold">{product.attributes.title}</h3>
+            <Heading
+              as={Link}
+              to={PRODUCTS_ROUTE + "/" + product.id}
+              className="text-3xl font-bold"
+            >
+              {product.attributes.title}
+            </Heading>
           </div>
           <div className="flex justify-between items-center bg-gray-100 bg-opacity-60 py-3 px-5">
             <div className="text-2xl font-bold">

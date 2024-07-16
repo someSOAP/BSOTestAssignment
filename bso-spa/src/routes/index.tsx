@@ -4,9 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RootRoute } from "./RootRoute";
 import { AuthenticatedRoot } from "./AuthenticatedRoot";
 import { ProductsRoute } from "./ProductsRoute";
+import { ProductInfoRoute } from "./ProductInfoRoute.tsx";
 import { SignInRoute } from "./SignInRoute";
 import { SignUpRoute } from "./SignUpRoute";
-import { CartRoute } from "./CartRoute.tsx";
+import { CartRoute } from "./CartRoute";
 
 import {
   SIGN_UP_ROUTE,
@@ -14,6 +15,7 @@ import {
   ROOT_ROUTE,
   PRODUCTS_ROUTE,
   CART_ROUTE,
+  PRODUCT_ITEM_ROUTE,
 } from "@/constants/route.constants";
 
 const browserRouter = createBrowserRouter([
@@ -35,6 +37,10 @@ const browserRouter = createBrowserRouter([
           {
             path: PRODUCTS_ROUTE,
             element: <ProductsRoute />,
+          },
+          {
+            path: PRODUCT_ITEM_ROUTE,
+            element: <ProductInfoRoute />,
           },
           {
             path: CART_ROUTE,

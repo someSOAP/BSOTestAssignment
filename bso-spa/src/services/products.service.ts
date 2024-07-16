@@ -26,5 +26,8 @@ export const productsApiService = createApi({
         return currentArg != previousArg;
       },
     }),
+    product: build.query<StrapiResponse<ProductType>, number>({
+      query: (id) => `/${id}?populate[0]=image`,
+    }),
   }),
 });
