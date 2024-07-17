@@ -5,7 +5,7 @@ export interface User {
   confirmed: boolean;
   createdAt: string;
   email: string;
-  id: never;
+  id: number;
   provider: "local";
   updatedAt: string;
   username: string;

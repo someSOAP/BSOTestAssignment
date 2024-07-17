@@ -1,9 +1,5 @@
-export interface StrapiEntity<Attributes extends object> {
-  id: number;
-  attributes: Attributes & StrapiEntityDefaultAttributes;
-}
-
 export interface StrapiEntityDefaultAttributes {
+  id: number;
   createdAt: string;
   publishedAt: string;
   updatedAt: string;
@@ -20,13 +16,7 @@ interface StrapiResponseMeta {
   pagination?: StrapiPaginationMeta;
 }
 
-export interface StrapiPopulatedProp<Prop> {
-  data: Prop;
-}
-
-export interface StrapiResponse<
-  Data extends StrapiEntity<object> | StrapiEntity<object>[]
-> {
+export interface StrapiResponse<Data extends object | object[]> {
   data: Data;
   meta: StrapiResponseMeta;
 }
@@ -38,9 +28,7 @@ export interface StrapiResponseError {
   status: number;
 }
 
-export type StrapiImageData = StrapiEntity<StrapiImageAttributes>;
-
-export interface StrapiImageAttributes {
+export interface StrapiImage {
   alternativeText: string | null;
   caption: string | null;
   createdAt: string;

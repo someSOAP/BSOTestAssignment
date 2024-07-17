@@ -9,6 +9,11 @@
     "bso-strapi": "yarn workspace bso-strapi",
     "spa:dev": "yarn bso-spa dev",
     "strapi:dev": "yarn bso-strapi develop",
-    "dev": "concurrently \"yarn strapi:dev\" \"yarn spa:dev\""
+    "dev": "concurrently \"yarn strapi:dev\" \"yarn spa:dev\"",
+    "postinstall": "patch-package"
+  },
+  "devDependencies": {
+    "patch-package": "8.0.0",
+    "postinstall-postinstall": "2.1.0"
   }
 }

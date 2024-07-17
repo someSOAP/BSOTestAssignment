@@ -1,0 +1,14 @@
+diff --git a/node_modules/strapi-plugin-io/server/structures/SocketIO.js b/node_modules/strapi-plugin-io/server/structures/SocketIO.js
+index dc18863..8b19622 100644
+--- a/node_modules/strapi-plugin-io/server/structures/SocketIO.js
++++ b/node_modules/strapi-plugin-io/server/structures/SocketIO.js
+@@ -37,7 +37,8 @@ class SocketIO {
+ 					const permissions = room.permissions.map(({ action }) => ({ action }));
+ 					const ability = await strapi.contentAPI.permissions.engine.generateAbility(permissions);
+ 
+-					if (room.type === API_TOKEN_TYPE.FULL_ACCESS || ability.can(schema.uid + '.' + event)) {
++					if (room.type === API_TOKEN_TYPE.FULL_ACCESS || room.name === 'Authenticated') {
++					// if (room.type === API_TOKEN_TYPE.FULL_ACCESS || ability.can(schema.uid + '.' + event)) {
+ 						// sanitize
+ 						const sanitizedData = await sanitizeService.output({
+ 							data: rawData,

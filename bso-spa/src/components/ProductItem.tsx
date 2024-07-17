@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 
 import { PRODUCTS_ROUTE } from "@/constants";
 
-import type { ProductEntity } from "@/types";
+import type { ProductType } from "@/types";
 
 import { ProductCartBtn } from "./ProductCartBtn";
 
 export interface ProductItemProps {
-  product: ProductEntity;
+  product: ProductType;
 }
 
 export const ProductItem: FC<ProductItemProps> = ({ product }) => {
-  const image = product.attributes.image?.data.attributes;
+  const image = product.image;
 
   return (
     <List.Item className="max-w-screen-md m-auto">
@@ -37,12 +37,12 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
               to={PRODUCTS_ROUTE + "/" + product.id}
               className="text-3xl font-bold"
             >
-              {product.attributes.title}
+              {product.title}
             </Heading>
           </div>
           <div className="flex justify-between items-center bg-gray-100 bg-opacity-60 py-3 px-5">
             <div className="text-2xl font-bold">
-              {formatPrice(product.attributes.price)}
+              {formatPrice(product.price)}
             </div>
             <ProductCartBtn productId={product.id} />
           </div>
