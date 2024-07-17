@@ -1,3 +1,4 @@
+export * from "./CartItem";
 export * from "./FormPanel";
 export * from "./HomeHeader";
 export * from "./ProductCartBtn";

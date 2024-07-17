@@ -1,22 +1,45 @@
 import { FC } from "react";
 
-import { List } from "rsuite";
+import { Button, List } from "rsuite";
+
+import { CartItem } from "@/components";
 import { useAppSelector } from "@/hooks";
-import { cartSelector } from "@/store";
+import { cartSelector, cartTotalPriceSelector } from "@/store";
+import { formatPrice } from "@/utils";
+import { usersApiService } from "@/services";
+
+const { useEmptyCartMutation } = usersApiService;
 
 export const CartRoute: FC = () => {
   const cart = useAppSelector(cartSelector);
-  // const [removeFromCart, { isLoading: isRemoving }] =
-  //   useRemoveFromCartMutation();
-  // const [emptyCart, { isLoading: isEmptying }] = useEmptyCartMutation();
+  const totalPrice = useAppSelector(cartTotalPriceSelector);
+
+  const [emptyCart] = useEmptyCartMutation();
+
+  const handleEmptyCard = () => {
+    emptyCart();
+  };
+
+  const isEmpty = !cart.length;
 
   return (
     <div className="w-full h-full overflow-hidden flex flex-col">
-      <List>
+      <List className="flex-1">
         {cart.map((item) => {
-          return <List.Item key={item.id}>{JSON.stringify(item)}</List.Item>;
+          return <CartItem key={item.id} product={item} />;
         })}
       </List>
+      {!isEmpty && (
+        <div className="flex max-w-screen-md w-full m-auto justify-between items-center py-3 px-5">
+          <div className="text-lg">
+            Total:{" "}
+            <span className="font-semibold ">{formatPrice(totalPrice)}</span>
+          </div>
+          <Button onClick={handleEmptyCard} appearance="primary" color="green">
+            Empty cart
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

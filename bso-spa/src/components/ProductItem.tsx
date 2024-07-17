@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { List, Heading } from "rsuite";
 
-import { getImageUrl, formatPrice } from "@/utils";
+import { getImageUrl, formatPrice, getImageAlt } from "@/utils";
 import { Link } from "react-router-dom";
 
 import { PRODUCTS_ROUTE } from "@/constants";
@@ -16,19 +16,17 @@ export interface ProductItemProps {
 }
 
 export const ProductItem: FC<ProductItemProps> = ({ product }) => {
-  const imgData = product.attributes.image?.data;
+  const image = product.attributes.image?.data.attributes;
 
   return (
     <List.Item className="max-w-screen-md m-auto">
       <div className="max-h-[40vh] relative overflow-hidden">
-        {imgData && (
+        {image && (
           <div className="w-full overflow-hidden shrink-0">
             <img
               className="object-contain w-full h-full"
-              src={getImageUrl(imgData, "medium")}
-              alt={
-                imgData.attributes.alternativeText ?? imgData.attributes.name
-              }
+              src={getImageUrl(image, "medium")}
+              alt={getImageAlt(image)}
             />
           </div>
         )}

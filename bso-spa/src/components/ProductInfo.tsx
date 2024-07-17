@@ -2,16 +2,17 @@ import { FC } from "react";
 
 import { Heading } from "rsuite";
 
-import { formatPrice, getImageUrl } from "@/utils";
-import { ProductCartBtn } from "@/components";
+import { formatPrice, getImageAlt, getImageUrl } from "@/utils";
 import type { ProductEntity } from "@/types";
+
+import { ProductCartBtn } from "./ProductCartBtn";
 
 export interface ProductInfoProps {
   product: ProductEntity;
 }
 
 export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
-  const imageData = product.attributes.image?.data;
+  const image = product.attributes.image?.data.attributes;
 
   return (
     <div className="max-w-screen-lg px-6 py-3 h-full overflow-scroll mx-auto flex flex-col justify-center">
@@ -20,15 +21,12 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
       </Heading>
 
       <div className="flex flex-col sm:flex-row">
-        {imageData && (
+        {image && (
           <div className="basis-full max-h-[50vh] overflow-hidden my-4">
             <img
               className="h-full rounded-md shadow-2xl mx-auto sm:mx-0"
-              src={getImageUrl(imageData)}
-              alt={
-                imageData.attributes.alternativeText ??
-                imageData.attributes.name
-              }
+              src={getImageUrl(image)}
+              alt={getImageAlt(image)}
             />
           </div>
         )}

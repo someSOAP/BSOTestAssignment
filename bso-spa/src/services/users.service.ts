@@ -3,6 +3,8 @@ import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { STRAPI_API } from "@/constants";
 import { RootAppState, User, UserCart } from "@/types";
 
+const CART_API_URL = "me/?populate[cart][populate][0]=image&fields[0]=id";
+
 export const usersApiService = createApi({
   reducerPath: "usersApiService",
   baseQuery: fetchBaseQuery({
@@ -17,11 +19,11 @@ export const usersApiService = createApi({
       query: () => "me",
     }),
     myCart: build.query<UserCart, void>({
-      query: () => "me/?populate[0]=cart&fields[0]=id",
+      query: () => CART_API_URL,
     }),
     emptyCart: build.mutation<UserCart, void>({
       query: () => ({
-        url: "me?populate[0]=cart&fields[0]=id",
+        url: CART_API_URL,
         method: "PUT",
         body: {
           cart: [],
@@ -37,7 +39,7 @@ export const usersApiService = createApi({
 
         try {
           const res = await fetchWithBQ({
-            url: "me?populate[0]=cart&fields[0]=id",
+            url: CART_API_URL,
             method: "PUT",
             body: {
               cart: Array.from(cartItemIdSet),
@@ -58,7 +60,7 @@ export const usersApiService = createApi({
 
         try {
           const res = await fetchWithBQ({
-            url: "me?populate[0]=cart&fields[0]=id",
+            url: CART_API_URL,
             method: "PUT",
             body: {
               cart: Array.from(cartItemIdSet),

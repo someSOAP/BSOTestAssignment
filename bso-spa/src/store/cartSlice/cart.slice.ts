@@ -30,6 +30,12 @@ const cartSlice = createSlice({
         return payload.cart;
       }
     );
+    builder.addMatcher(
+      usersApiService.endpoints.emptyCart.matchFulfilled,
+      (_, { payload }) => {
+        return payload.cart;
+      }
+    );
   },
 });
 
