@@ -22,7 +22,7 @@ Email: `test@admin.com`\
 Password: `TestAdmin123`
 
 ### Test user
-Username: `test`
+Username: `test` | `test2`\
 Password: `Pass123`
 
 ## Patches
