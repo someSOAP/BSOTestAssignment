@@ -5,7 +5,7 @@ import { IconButton } from "rsuite";
 import CloseOutlineIcon from "@rsuite/icons/CloseOutline";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
 
-import { cartSelector } from "@/store";
+import { cartSelector, disabledProductsIdSetSelector } from "@/store";
 import { useAppSelector } from "@/hooks";
 import { usersApiService } from "@/services";
 
@@ -17,6 +17,9 @@ const { useAddToCartMutation, useRemoveFromCartMutation } = usersApiService;
 
 export const ProductCartBtn: FC<ProductCartBtnProps> = ({ productId }) => {
   const cart = useAppSelector(cartSelector);
+  const disabledProductsSet = useAppSelector(disabledProductsIdSetSelector);
+
+  const isDisabled = disabledProductsSet.has(productId);
 
   const [addToCart, { isLoading: isAdding }] = useAddToCartMutation();
   const [removeFromCart, { isLoading: isRemoving }] =
@@ -34,6 +37,7 @@ export const ProductCartBtn: FC<ProductCartBtnProps> = ({ productId }) => {
 
   return (
     <IconButton
+      disabled={isDisabled && !isInCart}
       loading={isRemoving || isAdding}
       appearance="primary"
       color={isInCart ? "orange" : "green"}

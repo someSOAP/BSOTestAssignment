@@ -371,7 +371,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     title: Attribute.String &
@@ -383,7 +383,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
     price: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::product.product',
       'oneToOne',

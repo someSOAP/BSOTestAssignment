@@ -11,10 +11,14 @@ import {
 } from "@/services";
 import { authSliceReducer, listenerMiddleware } from "@/store/authSlice";
 import { cartSliceReducer } from "@/store/cartSlice";
+import { productsSliceReducer } from "@/store/productsSlice";
+import { disabledProductsSliceReducer } from "@/store/disabledProductsSlice";
 
 const reducer = combineReducers({
   authSliceReducer,
   cartSliceReducer,
+  productsSliceReducer,
+  disabledProductsSliceReducer,
   [authApiService.reducerPath]: authApiService.reducer,
   [usersApiService.reducerPath]: usersApiService.reducer,
   [productsApiService.reducerPath]: productsApiService.reducer,

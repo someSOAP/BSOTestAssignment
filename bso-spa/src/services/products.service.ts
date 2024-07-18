@@ -14,17 +14,18 @@ export const productsApiService = createApi({
   endpoints: (build) => ({
     productsPage: build.query<StrapiResponse<ProductType[]>, number>({
       query: (page: number) =>
-        `?pagination[page]=${page}&sort[0]=publishedAt:desc&populate[0]=image`,
-      merge: (currentData, newData) => {
-        currentData.data.push(...newData.data);
-        currentData.meta = newData.meta;
-      },
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
-      },
-      forceRefetch: ({ currentArg, previousArg }) => {
-        return currentArg != previousArg;
-      },
+        `?pagination[page]=${page}&populate[0]=image&sort[0]=createdAt:desc`,
+      // `?pagination[page]=${page}&sort[0]=publishedAt:desc&populate[0]=image`,
+      // merge: (currentData, newData) => {
+      //   currentData.data.push(...newData.data);
+      //   currentData.meta = newData.meta;
+      // },
+      // serializeQueryArgs: ({ endpointName }) => {
+      //   return endpointName;
+      // },
+      // forceRefetch: ({ currentArg, previousArg }) => {
+      //   return currentArg != previousArg;
+      // },
     }),
     product: build.query<StrapiResponse<ProductType>, number>({
       query: (id) => `/${id}?populate[0]=image`,

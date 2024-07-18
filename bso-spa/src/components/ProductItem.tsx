@@ -10,6 +10,7 @@ import { PRODUCTS_ROUTE } from "@/constants";
 import type { ProductType } from "@/types";
 
 import { ProductCartBtn } from "./ProductCartBtn";
+import { Unavailable } from "./Unavailable";
 
 export interface ProductItemProps {
   product: ProductType;
@@ -30,6 +31,7 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
             />
           </div>
         )}
+        <Unavailable productId={product.id} />
         <div className="flex flex-col justify-between absolute top-0 w-full h-full">
           <div className="bg-gray-100 bg-opacity-60 py-3 px-5 ">
             <Heading

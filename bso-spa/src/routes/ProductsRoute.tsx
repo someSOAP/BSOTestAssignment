@@ -4,12 +4,16 @@ import { List, Loader } from "rsuite";
 
 import { ProductItem } from "@/components";
 import { productsApiService } from "@/services";
+import { useAppSelector } from "@/hooks";
+import { productsSelector } from "@/store/productsSlice/products.selectors.ts";
 
 const { useProductsPageQuery } = productsApiService;
 
 export const ProductsRoute: FC = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching } = useProductsPageQuery(page);
+  const { data: fetchData, isLoading, isFetching } = useProductsPageQuery(page);
+
+  const products = useAppSelector(productsSelector);
 
   const handleScroll = (event: UIEvent<HTMLDivElement>) => {
     if (isFetching) {
@@ -18,8 +22,8 @@ export const ProductsRoute: FC = () => {
 
     let isEndReached = false;
 
-    if (data?.meta.pagination && data?.data) {
-      isEndReached = data.meta.pagination.total <= data.data.length;
+    if (fetchData?.meta.pagination && fetchData?.data) {
+      isEndReached = fetchData.meta.pagination.total <= products.length;
     }
 
     if (isEndReached) {
@@ -39,7 +43,7 @@ export const ProductsRoute: FC = () => {
   return (
     <div className="w-full h-full overflow-hidden flex flex-col relative">
       <List onScroll={handleScroll}>
-        {data?.data.map((item) => {
+        {products.map((item) => {
           return <ProductItem key={item.id} product={item} />;
         })}
       </List>
