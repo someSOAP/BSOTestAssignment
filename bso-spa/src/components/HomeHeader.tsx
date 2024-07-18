@@ -6,15 +6,17 @@ import { Exit } from "@rsuite/icons";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { CART_ROUTE, PRODUCTS_ROUTE } from "@/constants";
-import { resetAuthStateAction } from "@/store";
-import { cartSelector } from "@/store/cartSlice/cart.selectors.ts";
+import { resetAuthStateAction, cartSelector } from "@/store";
 
+import { usersApiService, authApiService } from "@/services";
 export const HomeHeader: FC = () => {
   const dispatch = useAppDispatch();
 
   const cart = useAppSelector(cartSelector);
 
   const handleLogOut = () => {
+    dispatch(usersApiService.util.resetApiState());
+    dispatch(authApiService.util.resetApiState());
     dispatch(resetAuthStateAction());
   };
 

@@ -1,3 +1,4 @@
+export * from "./AuthRootWrapper.tsx";
 export * from "./CartItem";
 export * from "./FormPanel";
 export * from "./HomeHeader";
