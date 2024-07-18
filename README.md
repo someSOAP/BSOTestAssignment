@@ -12,6 +12,9 @@ real time update.
 In order to reduce the time of development some of the things were omitted or simplified. For example, errors proceeding 
 were mostly omitted, project files structure was simplifed (feature folders were omitted and so on).
 
+## Start
+In order to start the application run `yarn install` command and `yarn dev` afterwards. It will concurrently run the strapi 
+dev server and react spa dev project. 
 
 ## Credentials
 ### Strapi Admin
