@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { usersApiService } from "@/services";
+import { usersApiService, productsApiService } from "@/services";
 import type { ProductType } from "@/types";
 
 const getCartSliceInitialState = (): ProductType[] => {
@@ -34,6 +34,18 @@ const cartSlice = createSlice({
       usersApiService.endpoints.emptyCart.matchFulfilled,
       (_, { payload }) => {
         return payload.cart;
+      }
+    );
+    builder.addMatcher(
+      productsApiService.endpoints.product.matchFulfilled,
+      (state, { payload }) => {
+        const updatedProduct = payload.data;
+        return state.map((it) => {
+          if (it.id === updatedProduct.id) {
+            return updatedProduct;
+          }
+          return it;
+        });
       }
     );
   },

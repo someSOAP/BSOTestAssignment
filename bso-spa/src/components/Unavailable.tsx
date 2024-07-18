@@ -16,7 +16,7 @@ export const Unavailable: FC<UnavailableProps> = ({ productId }) => {
   }
 
   return (
-    <div className="absolute top-0 h-full w-full bg-gray-500 bg-opacity-60 grid place-items-center">
+    <div className="absolute top-0 left-0 h-full w-full bg-gray-500 bg-opacity-60 grid place-items-center">
       <div className="text-3xl font-semibold text-gray-200">UNAVAILABLE</div>
     </div>
   );

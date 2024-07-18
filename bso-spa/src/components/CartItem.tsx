@@ -9,6 +9,8 @@ import { usersApiService } from "@/services";
 import { formatPrice, getImageAlt, getImageUrl } from "@/utils";
 import { PRODUCTS_ROUTE } from "@/constants";
 
+import { Unavailable } from "./Unavailable";
+
 export interface CartItemProps {
   product: ProductType;
 }
@@ -25,6 +27,7 @@ export const CartItem: FC<CartItemProps> = ({ product }) => {
 
   return (
     <List.Item className="max-w-screen-md m-auto">
+      <Unavailable productId={product.id} />
       <div className="flex items-center px-6">
         {product.image && (
           <div className="max-w-[80px] mr-5 rounded-md overflow-hidden">

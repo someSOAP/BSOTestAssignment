@@ -23,7 +23,7 @@ export const CartRoute: FC = () => {
   const isEmpty = !cart.length;
 
   return (
-    <div className="w-full h-full overflow-hidden flex flex-col">
+    <div className="w-full h-full overflow-hidden flex flex-col relative">
       <List className="flex-1">
         {cart.map((item) => {
           return <CartItem key={item.id} product={item} />;
@@ -38,6 +38,11 @@ export const CartRoute: FC = () => {
           <Button onClick={handleEmptyCard} appearance="primary" color="green">
             Empty cart
           </Button>
+        </div>
+      )}
+      {isEmpty && (
+        <div className="absolute top-0 w-full h-full grid place-items-center">
+          <div className="text-xl text-gray-400">Cart is empty</div>
         </div>
       )}
     </div>

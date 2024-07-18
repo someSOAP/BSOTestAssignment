@@ -72,6 +72,13 @@ const productsSlice = createSlice({
         return appendNewProducts(state, payload.data);
       }
     );
+
+    builder.addMatcher(
+      productsApiService.endpoints.product.matchFulfilled,
+      (state, { payload }) => {
+        return prependNewProducts(state, [payload.data]);
+      }
+    );
   },
 });
 

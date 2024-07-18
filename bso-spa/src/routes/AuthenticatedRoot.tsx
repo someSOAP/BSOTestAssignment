@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { io } from "socket.io-client";
 
@@ -9,11 +9,7 @@ import { usersApiService, productsApiService } from "@/services";
 import { HomeHeader } from "@/components";
 import { STRAPI_URL } from "@/constants";
 import { useAppDispatch, useAppStore } from "@/hooks";
-import {
-  appendDisabledProduct,
-  appendProducts,
-  prependProducts,
-} from "@/store";
+import { appendDisabledProduct } from "@/store";
 import type { ProductType, StrapiResponse } from "@/types";
 
 const { useMyCartQuery } = usersApiService;
@@ -25,7 +21,11 @@ export const AuthenticatedRoot: FC = () => {
   useMyCartQuery();
   const store = useAppStore();
   const dispatch = useAppDispatch();
-  const [fetchProduct] = useLazyProductQuery();
+  const [fetchProduct, { isLoading }] = useLazyProductQuery();
+
+  useEffect(() => {
+    console.log("isLoading: ", isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
     const token = store.getState().authSliceReducer.token;
@@ -39,18 +39,10 @@ export const AuthenticatedRoot: FC = () => {
 
     socket.on("connect", () => {
       socket.on("product:create", (data: StrapiIOResponse) => {
-        fetchProduct(data.data.id)
-          .unwrap()
-          .then((res) => {
-            dispatch(prependProducts([res.data]));
-          });
+        fetchProduct(data.data.id);
       });
       socket.on("product:update", (data: StrapiIOResponse) => {
-        fetchProduct(data.data.id)
-          .unwrap()
-          .then((res) => {
-            dispatch(appendProducts([res.data]));
-          });
+        fetchProduct(data.data.id);
       });
       socket.on("product:delete", (data: StrapiIOResponse) => {
         dispatch(appendDisabledProduct(data.data));
@@ -67,12 +59,12 @@ export const AuthenticatedRoot: FC = () => {
     };
   }, []);
 
+  const memoizedOutlet = useMemo(() => <Outlet />, []);
+
   return (
     <Container className="h-full overflow-hidden flex flex-col">
       <HomeHeader />
-      <Content className="flex 1 overflow-hidden">
-        <Outlet />
-      </Content>
+      <Content className="flex 1 overflow-hidden">{memoizedOutlet}</Content>
     </Container>
   );
 };
